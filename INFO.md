@@ -1,0 +1,10 @@
+https://habr.com/ru/post/322474/
+https://www.youtube.com/watch?v=l5ug_W9iFUs
+https://www.youtube.com/watch?v=pK9mF5aK05Q
+кадди
+https://12factor.net/ru/
+https://www.pagerduty.com/resources/learn/post-mortem-incident-report/
+https://rollbar.com/
+https://www.ozon.ru/context/detail/id/32211144/
+https://trunkbaseddevelopment.com/
+https://medium.com/skyhub-labs/please-dont-ask-me-for-a-staging-server-97647c184ac0
