@@ -1,0 +1,9 @@
+FROM ruby:2.6.2
+RUN apt-get update -qq && apt-get install -y nodejs
+ENV PROJECT_ROOT /usr/src/app
+WORKDIR $PROJECT_ROOT
+
+COPY Gemfile $PROJECT_ROOT/Gemfile
+COPY Gemfile.lock $PROJECT_ROOT/Gemfile.lock
+RUN bundle install
+COPY . $PROJECT_ROOT
