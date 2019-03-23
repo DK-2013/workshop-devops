@@ -10,13 +10,15 @@ services:
       - "~/.bash_history:/.bash_history"
       - "./services/app:/usr/src/app:cached"
       - "/tmp:/tmp:delegated"
+    expose:
+      - "3000"
   nginx:
     build:
       context: services/nginx
       dockerfile: Dockerfile
     volumes:
-      - "./services/nginx/defult.conf:/etc/nginx/conf.d/defult.conf"
+      - "./services/nginx/default.conf:/etc/nginx/conf.d/default.conf"
     ports:
-      - "8080:3000"
+      - "8080:80"
     depends_on:
       - app

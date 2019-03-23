@@ -6,11 +6,11 @@ app:
 app-:
 	docker-compose down
 
-#app-setup: app-build
-#	docker-compose run --user=$(USER) app <install deps>
+app-setup: app-build app-db
 
-#app-db:
-#  docker-compose run bin/rails setup
+app-db:
+	docker-compose run app bin/rails db:create
+	docker-compose run app bin/rails db:migrate
 
 app-build:
 	docker-compose build

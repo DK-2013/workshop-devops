@@ -28,3 +28,10 @@
 ## ideas
 * write one run anywhere - java, chefs
 * learn once write anywhere - ansible, react native
+
+## ---
+sudo lsof -i :portnumber
+localhost
+0.0.0.0
+ip addr
+docker run -it nginx bash - зайти в контейнер
