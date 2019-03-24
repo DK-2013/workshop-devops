@@ -24,7 +24,10 @@
 .byebug_history
 vendor
 
-
-
+secrets.auto.tfvars
+*.tfstate*
+.terraform
+.terraform/*
+.env
 
 

@@ -5,13 +5,15 @@ services:
     build:
       context: services/app
       dockerfile: Dockerfile.development
-    command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s"
+    command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p ${APP_PORT} -b '0.0.0.0'"
     volumes:
       - "~/.bash_history:/.bash_history"
       - "./services/app:/usr/src/app:cached"
       - "/tmp:/tmp:delegated"
+    container_name: demo_app
+    env_file: ".env"
     expose:
-      - "3000"
+      - "${PORT}"
   nginx:
     build:
       context: services/nginx

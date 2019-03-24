@@ -6,17 +6,17 @@ app:
 app-:
 	docker-compose down
 
-app-setup: app-build app-db
-
-app-db:
-	docker-compose run app bin/rails db:create
-	docker-compose run app bin/rails db:migrate
-
 app-build:
 	docker-compose build
 
 app-bash:
 	docker-compose run --user=$(USER) app bash
 
-app-clear:
-	docker-compose run app rm -r tmp
+app-setup: development-setup-env app-build app-db
+
+development-setup-env:
+	ansible-playbook ansible/development.yml -i ansible/development -vv
+
+app-db:
+	docker-compose run app bin/rails db:create
+	docker-compose run app bin/rails db:migrate
