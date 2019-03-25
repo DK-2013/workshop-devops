@@ -29,5 +29,5 @@ secrets.auto.tfvars
 .terraform
 .terraform/*
 .env
-
+tmp
 

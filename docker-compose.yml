@@ -10,10 +10,10 @@ services:
       - "~/.bash_history:/.bash_history"
       - "./services/app:/usr/src/app:cached"
       - "/tmp:/tmp:delegated"
-    container_name: demo_app
+    container_name: app
     env_file: ".env"
     expose:
-      - "${PORT}"
+      - "${APP_PORT}"
   nginx:
     build:
       context: services/nginx
