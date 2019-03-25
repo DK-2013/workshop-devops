@@ -1,2 +1,2 @@
----
-rails_env: DEVELOPMENT
+rack_env: development
+rails_env: development

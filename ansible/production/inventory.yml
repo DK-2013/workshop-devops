@@ -1,0 +1,12 @@
+---
+
+all:
+  hosts:
+    localhost:
+      gather_facts: false
+      ansible_connection: local
+
+webservers:
+  hosts:
+    app:
+      ansible_host: 46.101.191.108

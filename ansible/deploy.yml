@@ -1,0 +1,91 @@
+---
+- hosts: all
+  gather_facts: no
+  vars_prompt:
+    - name: "app_image_tag"
+      prompt: "Application image tag"
+      private: no
+
+  tasks:
+    - set_fact: app_image_tag={{ app_image_tag }}
+      tags: always
+
+- hosts: production
+  gather_facts: no
+
+  tasks:
+    - apt:
+        update_cache: true
+        name: python3-pip
+
+    - pip:
+        name: docker-py
+
+    - name: Create a network
+      docker_network:
+        name: "{{ app_docker_network }}"
+
+    - template:
+        src: environment.j2
+        dest: "{{ app_env_file }}"
+      tags: env
+
+    - name: download app image
+      docker_image:
+        name: "{{ app_image_name }}:{{ app_image_tag }}"
+        force: true
+
+    - name: download nginx image
+      docker_image:
+        name: "{{ nginx_image_name }}:{{ app_image_tag }}"
+        force: true
+
+    - name: create app db
+      docker_container:
+        recreate: yes
+        name: create_app_db
+        command: "rails db:create"
+        image: "{{ app_image_name }}:{{ app_image_tag }}"
+        state: started
+        env_file: "{{ app_env_file }}"
+        networks:
+          - name: "{{ app_docker_network }}"
+      run_once: yes
+
+    - name: run migrations
+      docker_container:
+        recreate: yes
+        name: app_migrations
+        command: "rails db:migrate"
+        image: "{{ app_image_name }}:{{ app_image_tag }}"
+        state: started
+        env_file: "{{ app_env_file }}"
+        networks:
+          - name: "{{ app_docker_network }}"
+      run_once: yes
+      tags: app
+
+    - name: start app
+      docker_container:
+        recreate: yes
+        name: app
+        state: started
+        command: sh -c "rails s"
+        image: "{{ app_image_name }}:{{ app_image_tag }}"
+        env_file: "{{ app_env_file }}"
+        exposed_ports:
+          - 3000
+        networks:
+          - name: "{{ app_docker_network }}"
+      tags: app
+
+    - name: start nginx
+      docker_container:
+        name: nginx
+        image: "{{ app_image_name }}:latest"
+        state: started
+        networks:
+          - name: "{{ app_docker_network }}"
+        ports:
+          - 8080:80
+      tags: app

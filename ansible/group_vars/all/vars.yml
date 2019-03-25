@@ -1,2 +1,11 @@
 ---
+ansible_user: root
+ansible_python_interpreter: "/usr/bin/env python3"
+
+app_name: app
+app_repo: "git@github.com:DK-2013/workshop-devops.git"
+app_image_name: "kdm1/workshop-devops-app"
+nginx_image_name: "kdm1/workshop-devops-nginx"
+app_docker_network: app_docker_network
+
 app_port: 3000

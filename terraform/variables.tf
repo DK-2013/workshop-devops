@@ -2,7 +2,7 @@ variable "project_name" {
   default = "app"
 }
 variable "do_token" {
-  default = "xxxxxxxxxxxxxxxxxxxx"
+  default = "xxx"
 }
 variable "region" {
   default = "fra1"

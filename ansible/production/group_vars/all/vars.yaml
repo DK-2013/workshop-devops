@@ -1,1 +1,7 @@
-rails_env: PRODUCTION
+rack_env: production
+rails_env: production
+rails_log_to_stdout: null
+
+app_run_user: root
+app_run_user_home: /root
+app_env_file: /root/.env
