@@ -10,7 +10,7 @@
     - set_fact: app_image_tag={{ app_image_tag }}
       tags: always
 
-- hosts: production
+- hosts: webservers
   gather_facts: no
 
   tasks:
@@ -34,11 +34,13 @@
       docker_image:
         name: "{{ app_image_name }}:{{ app_image_tag }}"
         force: true
+      tags: app
 
     - name: download nginx image
       docker_image:
         name: "{{ nginx_image_name }}:{{ app_image_tag }}"
         force: true
+      tags: nginx
 
     - name: create app db
       docker_container:
@@ -63,7 +65,7 @@
         networks:
           - name: "{{ app_docker_network }}"
       run_once: yes
-      tags: app
+      tags: [webservers, app]
 
     - name: start app
       docker_container:
@@ -77,7 +79,7 @@
           - 3000
         networks:
           - name: "{{ app_docker_network }}"
-      tags: app
+      tags: [webservers, app, env]
 
     - name: start nginx
       docker_container:
@@ -88,4 +90,4 @@
           - name: "{{ app_docker_network }}"
         ports:
           - 8080:80
-      tags: app
+      tags: [webservers, nginx]
