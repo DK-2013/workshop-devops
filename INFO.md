@@ -30,6 +30,8 @@
 * [DO api](https://www.digitalocean.com/community/tutorials/how-to-use-doctl-the-official-digitalocean-command-line-client)
 * Terraform [tutorial](https://learn.hashicorp.com/terraform/getting-started/install)
 * https://www.youtube.com/watch?v=9SOFqWYpf9Y
+* https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
+
 
 ## tasks
 * https://gist.github.com/mokevnin/02f84fa9d35aad2c8277b3dede147155
