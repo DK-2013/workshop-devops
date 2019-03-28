@@ -55,9 +55,10 @@
 * 0.0.0.0
 * ip addr
 * docker run -it nginx bash - зайти в контейнер
-* terraform init : plan : apply
+* terraform init : plan : apply : taint
 * ssh-add path/to/private/key - добавление ключа
 * ssh-add -L - список ключей
 * [systemd](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)
 * cgroups
-* 
+* sudo ufw disable - отключить файервол
+* bundle exec rake secret - for SECRET_KEY_BASE

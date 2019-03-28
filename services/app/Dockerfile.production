@@ -7,3 +7,4 @@ COPY Gemfile $PROJECT_ROOT/Gemfile
 COPY Gemfile.lock $PROJECT_ROOT/Gemfile.lock
 RUN bundle install
 COPY . $PROJECT_ROOT
+RUN bundle exec rake assets:precompile

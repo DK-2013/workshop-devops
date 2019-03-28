@@ -84,10 +84,10 @@
     - name: start nginx
       docker_container:
         name: nginx
-        image: "{{ app_image_name }}:latest"
+        image: "{{ nginx_image_name }}:latest"
         state: started
         networks:
           - name: "{{ app_docker_network }}"
         ports:
           - 8080:80
-      tags: [webservers, nginx]
+      tags: [webservers, nginx, snginx]
