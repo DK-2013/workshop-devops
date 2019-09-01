@@ -42,37 +42,12 @@
         force: true
       tags: nginx
 
-    - name: create app db
-      docker_container:
-        recreate: yes
-        name: create_app_db
-        command: "rails db:create"
-        image: "{{ app_image_name }}:{{ app_image_tag }}"
-        state: started
-        env_file: "{{ app_env_file }}"
-        networks:
-          - name: "{{ app_docker_network }}"
-      run_once: yes
-
-    - name: run migrations
-      docker_container:
-        recreate: yes
-        name: app_migrations
-        command: "rails db:migrate"
-        image: "{{ app_image_name }}:{{ app_image_tag }}"
-        state: started
-        env_file: "{{ app_env_file }}"
-        networks:
-          - name: "{{ app_docker_network }}"
-      run_once: yes
-      tags: [webservers, app]
-
     - name: start app
       docker_container:
         recreate: yes
         name: app
         state: started
-        command: sh -c "rails s"
+        command: sh -c "rails db:migrate & rails s"
         image: "{{ app_image_name }}:{{ app_image_tag }}"
         env_file: "{{ app_env_file }}"
         exposed_ports:
@@ -80,6 +55,31 @@
         networks:
           - name: "{{ app_docker_network }}"
       tags: [webservers, app, env]
+
+#    - name: create app db
+#      docker_container:
+#        recreate: yes
+#        name: create_app_db
+#        command: "rails db:create"
+#        image: "{{ app_image_name }}:{{ app_image_tag }}"
+#        state: started
+#        env_file: "{{ app_env_file }}"
+#        networks:
+#          - name: "{{ app_docker_network }}"
+#      run_once: yes
+
+#    - name: run migrations
+#      docker_container:
+#        recreate: yes
+#        name: app_migrations
+#        command: "rails db:migrate"
+#        image: "{{ app_image_name }}:{{ app_image_tag }}"
+#        state: started
+#        env_file: "{{ app_env_file }}"
+#        networks:
+#          - name: "{{ app_docker_network }}"
+#      run_once: yes
+#      tags: [webservers, app, env]
 
     - name: start nginx
       docker_container:
